@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px 12px;
+  background: #090b10;
+  color: #f4f3f7;
+  font-family: Arial, sans-serif;
+  line-height: 1.45;
+}
+
+.phone {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 420px);
+  height: clamp(600px, calc(100svh - 32px), 820px);
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #333846;
+  border-radius: 28px;
+  background: #13151e;
+}
+
+h1, h2, p { margin: 0; }
+h1 { font-size: 24px; }
+h2 { font-size: 21px; }
+button { padding: 12px; border: 1px solid #6e6091; border-radius: 12px; background: #574477; color: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+button:hover:not(:disabled) { background: #69548e; }
+button:focus-visible { outline: 3px solid #ffd197; outline-offset: 3px; }
+button:disabled { opacity: 0.35; cursor: default; }
+.quiet-button { border-color: #414654; background: #20232d; }
+.reminder { flex-shrink: 0; padding: 9px 8px; background: #1d1f28; color: #b7b0a5; font-size: 11px; text-align: center; }
+.eyebrow { color: #b8a9e1; font-size: 10px; letter-spacing: 1.8px; }
+.feed { position: relative; display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.feed-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; }
+.clock-button { padding: 4px 8px; border-color: transparent; background: transparent; color: #c0c2cc; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.clock-label { display: block; color: #9296a8; font-size: 9px; }
+.clock-panel { position: absolute; z-index: 4; top: 74px; right: 12px; left: 12px; padding: 14px; border: 1px solid #454957; border-radius: 12px; background: #20232d; font-size: 13px; }
+.clock-panel p + p { margin-top: 6px; }
+
+.stage { position: relative; flex: 1; min-height: 0; margin: 0 10px; overflow: hidden; border-radius: 18px; background: radial-gradient(ellipse at 50% 32%, var(--wash, #2e2442), #111622 78%); }
+.video-number { position: absolute; z-index: 1; top: 15px; left: 16px; color: #c1bed3; font-size: 9px; letter-spacing: 1.5px; }
+.clip-art { position: absolute; inset: 42px 18px 170px; display: flex; justify-content: center; align-items: center; }
+.caption { position: absolute; right: 16px; bottom: 18px; left: 16px; }
+.creator { margin-bottom: 5px; color: var(--accent, #c9b3ff); font-size: 11px; }
+.clip-hint { min-height: 34px; margin-top: 5px; color: #d2d3dd; font-size: 13px; }
+.thought { margin-top: 12px; font-size: 13px; font-style: italic; color: #d1c5e8; }
+.thought > span:first-child { display: block; margin-bottom: 3px; color: #8e91a3; font-size: 10px; font-style: normal; }
+.paused * { animation-play-state: paused !important; }
+
+.decision { position: absolute; z-index: 3; right: 10px; bottom: 10px; left: 10px; padding: 18px; border: 1px solid #625575; border-radius: 18px; background: #201c2ef5; box-shadow: 0 12px 40px #0008; }
+.decision h2 { margin-top: 6px; font-size: 19px; }
+.decision-thought { margin: 10px 0 16px; color: #d3c6e7; font-size: 14px; font-style: italic; }
+.choices { display: grid; gap: 8px; }
+.choices button { width: 100%; }
+.feed-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px; }
+.up-next { grid-column: 1 / -1; color: #9296a8; font-size: 10px; text-align: center; }
+
+/* Each scene unfolds independently of the bedtime clock. */
+.tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; height: min(100%, 240px); aspect-ratio: 1; max-width: 95%; transform: rotate(-8deg); }
+.tile { aspect-ratio: 1; border-radius: 9px; background: #be9aef; box-shadow: inset 0 -6px 0 #0002; animation: drop-in 0.8s calc(var(--i) * 0.45s) both; }
+.tile:nth-child(3n) { background: #f6bd76; }
+.tile:nth-child(3n + 1) { background: #94cfc3; }
+@keyframes drop-in { from { opacity: 0; transform: translateY(-180px) rotate(30deg); } to { opacity: 1; transform: translateY(0) rotate(0); } }
+
+.arena { position: relative; width: 85%; height: 85%; max-height: 270px; border: 1px solid #536473; border-radius: 20px; background: #15222b; }
+.ledge { position: absolute; height: 9px; border-radius: 10px; background: #84adb4; }
+.ledge.one { top: 31%; left: 0; width: 55%; }
+.ledge.two { top: 51%; right: 0; width: 50%; }
+.ledge.three { top: 71%; left: 0; width: 65%; }
+.goal { position: absolute; bottom: 4%; left: 44%; width: 42px; height: 12px; border: 2px solid #d9bb87; border-radius: 50%; }
+.marble { position: absolute; top: 7%; left: 10%; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #fff0c4, #e7a45e); box-shadow: 0 4px 10px #0008; animation: marble-path 12s ease-in-out forwards; }
+@keyframes marble-path { 0% { top: 7%; left: 10%; } 20% { top: 20%; left: 68%; } 35% { top: 42%; left: 28%; } 55% { top: 62%; left: 75%; } 80%, 100% { top: 85%; left: 47%; } }
+
+.drawing { width: min(100%, 300px); max-height: 100%; overflow: visible; }
+.drawing path { fill: none; stroke: #efc796; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw-line 11s ease-out forwards; }
+.drawing .window { stroke: #9fd3c9; animation-delay: 3s; animation-duration: 8s; }
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+
+.solar { position: relative; height: min(100%, 285px); aspect-ratio: 1; max-width: 100%; }
+.sun { position: absolute; inset: 43%; border-radius: 50%; background: #ffcf86; box-shadow: 0 0 45px #f2b96a80; animation: appear 2s both; }
+.orbit { position: absolute; border: 1px solid #ffffff25; border-radius: 50%; animation: spin 18s linear infinite, appear 2s var(--wait) both; }
+.orbit.one { inset: 28%; --wait: 1s; }
+.orbit.two { inset: 15%; --wait: 3s; animation-duration: 24s, 2s; }
+.orbit.three { inset: 2%; --wait: 5s; animation-duration: 30s, 2s; }
+.planet { position: absolute; top: 45%; left: -6px; width: 13px; height: 13px; border-radius: 50%; background: #bba1f0; }
+.orbit.two .planet { background: #91d0c7; width: 18px; height: 18px; }
+.orbit.three .planet { background: #e995a7; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes appear { from { opacity: 0; scale: 0.7; } to { opacity: 1; scale: 1; } }
+
+.pixel-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; height: min(100%, 260px); aspect-ratio: 1; max-width: 100%; }
+.pixel { aspect-ratio: 1; border-radius: 3px; background: #2a2940; animation: reveal-pixel 0.6s calc(var(--i) * 0.09s) both; }
+.pixel.filled { background: #f29aad; box-shadow: 0 0 12px #f29aad25; }
+@keyframes reveal-pixel { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: scale(1); } }
+
+.summary { flex: 1; min-height: 0; overflow-y: auto; padding: 24px; }
+.summary h1 { margin: 8px 0 22px; }
+.stats { display: grid; gap: 16px; margin-bottom: 16px; }
+.stats p { font-size: 18px; }
+.label { display: block; margin-bottom: 3px; color: #a9aec0; font-size: 12px; }
+.total { padding-top: 14px; border-top: 1px solid #343848; }
+#finalDelay { font-size: 28px; color: #ffcf96; }
+.note { color: #a9aec0; font-size: 12px; }
+#restart { width: 100%; margin-top: 20px; }
+.history { margin-top: 26px; padding-top: 20px; border-top: 1px solid #343848; }
+.history h2 { font-size: 18px; margin-bottom: 7px; }
+.strip-window { overflow-x: auto; margin: 14px 0; }
+.delay-strip { display: flex; gap: 3px; min-height: 16px; width: max-content; }
+.delay-strip span { height: 16px; background: #b5a1ed; border-radius: 3px; }
+.delay-strip span:nth-child(even) { background: #f6bd76; }
+ol { padding-left: 20px; margin: 14px 0; }
+li { margin-bottom: 16px; font-size: 14px; }
+li span { display: block; margin-top: 4px; color: #a9aec0; font-size: 12px; }
+[hidden] { display: none !important; }
+
+@media (max-width: 460px) {
+  body { padding: 0; }
+  .phone { width: 100%; height: 100svh; min-height: 540px; border: 0; border-radius: 0; }
+}
+
+@media (max-width: 340px) {
+  .phone { min-height: 680px; }
+  .clip-art { bottom: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile { animation-name: appear; }
+  .marble { animation-timing-function: linear; }
+  .orbit { animation-name: none, appear; }
+  .pixel { animation-name: appear; }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Late Night Feed — Represent a Phenomenon with Code and AI</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<main class="phone">
+  <p class="reminder">You need to wake up early tomorrow</p>
+
+  <section id="feed" class="feed" aria-label="Late-night video feed">
+    <header class="feed-header">
+      <div><span class="eyebrow">FOR YOU</span><h1>Late night</h1></div>
+      <button id="clockButton" class="clock-button" type="button" aria-expanded="false" aria-controls="clockPanel" aria-label="Show simulated clock">
+        <span id="clock">3:00 AM</span><span class="clock-label">simulated</span>
+      </button>
+    </header>
+
+    <div id="clockPanel" class="clock-panel" hidden>
+      <p>Current simulated time: <span id="clockDetail">3:00:00 AM</span></p>
+      <p>Next planned stopping time: <span id="nextStop">3:00 AM</span></p>
+      <p class="note">20 real seconds ≈ 5 simulated minutes. Time pauses at a stopping-point choice and when this tab is hidden.</p>
+    </div>
+
+    <div id="stage" class="stage paused">
+      <span id="videoNumber" class="video-number">SIMULATED ITEM 01</span>
+      <div id="clipArt" class="clip-art" aria-hidden="true"></div>
+      <div class="caption">
+        <p class="creator" id="creator"></p>
+        <h2 id="videoTitle"></h2>
+        <p id="clipHint" class="clip-hint"></p>
+        <p class="thought"><span>My thought</span> <span id="thought"></span></p>
+      </div>
+
+      <section id="decision" class="decision" aria-labelledby="decisionTitle">
+        <p class="eyebrow">A STOPPING POINT</p>
+        <h2 id="decisionTitle">I planned to stop at 3:00 AM.</h2>
+        <p id="decisionThought" class="decision-thought">“I'm not ready to stop.”</p>
+        <div class="choices">
+          <button id="five" type="button">Just 5 more minutes</button>
+          <button id="ten" type="button">Another 10 minutes</button>
+          <button id="stop" class="quiet-button" type="button">Stop for tonight</button>
+        </div>
+      </section>
+    </div>
+
+    <footer class="feed-controls">
+      <button id="nextItem" type="button">Next item ↓</button>
+      <button id="stopAnytime" class="quiet-button" type="button">Stop for tonight</button>
+      <p id="upNext" class="up-next"></p>
+    </footer>
+  </section>
+
+  <section id="summary" class="summary" hidden aria-labelledby="summaryTitle">
+    <p class="eyebrow">THE NIGHT, LOOKING BACK</p>
+    <h1 id="summaryTitle" tabindex="-1">I stopped for tonight.</h1>
+    <div class="stats">
+      <p><span class="label">Original planned bedtime</span>3:00 AM</p>
+      <p><span class="label">Actual simulated stopping time</span><span id="actualStop"></span></p>
+      <p><span class="label">Number of postponements</span><span id="finalCount"></span></p>
+      <p class="total"><span class="label">Total bedtime delay</span><span id="finalDelay"></span></p>
+    </div>
+    <p class="note">The total counts time actually viewed, including partial extensions. It is bedtime delay, not sleep lost.</p>
+    <button id="restart" type="button">Restart at 3:00 AM</button>
+
+    <section class="history" aria-labelledby="timelineTitle">
+      <h2 id="timelineTitle">The stopping points I moved</h2>
+      <p class="note">Block lengths show time actually viewed, not the full amount requested.</p>
+      <div class="strip-window"><div id="delayStrip" class="delay-strip" aria-hidden="true"></div></div>
+      <p id="emptyHistory" class="note">I stopped at the original bedtime. No postponements.</p>
+      <ol id="timeline" aria-label="Postponement history"></ol>
+    </section>
+    <p class="note">These thoughts represent one person's experience. The choices extend a stopping time, not individual video lengths. There is no forced ending time.</p>
+  </section>
+</main>
+
+</body>
+</html>
+
